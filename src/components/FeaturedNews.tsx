@@ -1,30 +1,44 @@
 import NewsCard from "./NewsCard";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/lib/supabase";
+
+const FeaturedNewsContent = () => {
+  const { data } = useQuery({
+    queryKey: ["news","featured"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("news")
+        .select("title, excerpt, category, cover_url, published_at")
+        .eq("status","published")
+        .order("published_at", { ascending: false })
+        .limit(3);
+      if (error) throw error;
+      return data || [];
+    }
+  });
+
+  const items = (data || []).map((n, idx) => ({
+    title: n.title,
+    excerpt: (n as any).excerpt,
+    category: (n as any).category,
+    date: n.published_at ? new Date(n.published_at as any).toLocaleDateString() : "",
+    image: (n as any).cover_url || "/placeholder.svg",
+    featured: idx === 0,
+  }));
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {items.map((article, index) => (
+        <NewsCard key={index} {...article} />
+      ))}
+    </div>
+  );
+};
 
 const FeaturedNews = () => {
-  const featuredArticles = [
-    {
-      title: "Supreme Court Delivers Landmark Judgment on Digital Privacy Rights",
-      excerpt: "In a unanimous decision, the Supreme Court has established new precedents for digital privacy protection, affecting millions of citizens across the country. The ruling addresses key concerns about data protection and surveillance.",
-      category: "Supreme Court",
-      date: "Today",
-      image: "/api/placeholder/800/400",
-      featured: true
-    },
-    {
-      title: "High Court Orders Investigation into Environmental Violations",
-      excerpt: "The Delhi High Court has directed authorities to conduct a comprehensive investigation into alleged environmental violations by industrial units.",
-      category: "High Court",
-      date: "2 hours ago",
-      image: "/api/placeholder/400/300"
-    },
-    {
-      title: "New Amendments to Criminal Procedure Code Announced",
-      excerpt: "The Ministry of Law and Justice has announced significant amendments to the Criminal Procedure Code, aimed at expediting justice delivery.",
-      category: "Legal Updates",
-      date: "4 hours ago",
-      image: "/api/placeholder/400/300"
-    }
-  ];
+  // Fetched from Supabase: latest 3 published articles
+  // Table assumed: news (title, excerpt, category, cover_url, status, published_at)
+
 
   return (
     <section className="py-16 bg-legal-gray-light/30">
@@ -38,11 +52,7 @@ const FeaturedNews = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {featuredArticles.map((article, index) => (
-            <NewsCard key={index} {...article} />
-          ))}
-        </div>
+        <FeaturedNewsContent />
       </div>
     </section>
   );

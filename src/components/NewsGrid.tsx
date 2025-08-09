@@ -1,45 +1,43 @@
 import NewsCard from "./NewsCard";
 import { Button } from "@/components/ui/button";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/lib/supabase";
+
+const NewsGridContent = () => {
+  const { data } = useQuery({
+    queryKey: ["news","latest"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("news")
+        .select("title, excerpt, category, cover_url, published_at")
+        .eq("status","published")
+        .order("published_at", { ascending: false })
+        .limit(12);
+      if (error) throw error;
+      return data || [];
+    }
+  });
+
+  const items = (data || []).map((n) => ({
+    title: (n as any).title,
+    excerpt: (n as any).excerpt,
+    category: (n as any).category,
+    date: (n as any).published_at ? new Date((n as any).published_at).toLocaleDateString() : "",
+    image: (n as any).cover_url || "/placeholder.svg",
+  }));
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {items.map((article, index) => (
+        <NewsCard key={index} {...article} />
+      ))}
+    </div>
+  );
+};
 
 const NewsGrid = () => {
-  const newsArticles = [
-    {
-      title: "Constitutional Bench to Hear Plea on Article 370",
-      excerpt: "A five-judge constitutional bench will examine the constitutional validity of the abrogation of Article 370 provisions related to Jammu and Kashmir.",
-      category: "Constitutional Law",
-      date: "6 hours ago"
-    },
-    {
-      title: "Bombay HC Grants Bail in High-Profile Corporate Fraud Case",
-      excerpt: "The Bombay High Court has granted bail to the accused in a major corporate fraud case involving misappropriation of funds worth several crores.",
-      category: "Criminal Law",
-      date: "8 hours ago"
-    },
-    {
-      title: "SC Issues Notice on Plea Against Electoral Bonds Scheme",
-      excerpt: "The Supreme Court has issued notice to the Centre and Election Commission on a plea challenging the Electoral Bonds Scheme for political funding.",
-      category: "Election Law",
-      date: "12 hours ago"
-    },
-    {
-      title: "Karnataka HC Directs State to Frame Policy on Gig Workers",
-      excerpt: "The Karnataka High Court has directed the state government to frame a comprehensive policy for the welfare and rights of gig economy workers.",
-      category: "Labor Law",
-      date: "1 day ago"
-    },
-    {
-      title: "SEBI Regulations: New Guidelines for Cryptocurrency Trading",
-      excerpt: "The Securities and Exchange Board of India has issued new guidelines regulating cryptocurrency trading platforms and investor protection measures.",
-      category: "Financial Law",
-      date: "1 day ago"
-    },
-    {
-      title: "Supreme Court Upholds Right to Information Act Amendments",
-      excerpt: "In a significant judgment, the Supreme Court has upheld recent amendments to the Right to Information Act while emphasizing transparency in governance.",
-      category: "Administrative Law",
-      date: "2 days ago"
-    }
-  ];
+  // Loaded from Supabase: latest published articles
+
 
   return (
     <section className="py-16">
@@ -53,11 +51,7 @@ const NewsGrid = () => {
           </Button>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {newsArticles.map((article, index) => (
-            <NewsCard key={index} {...article} />
-          ))}
-        </div>
+        <NewsGridContent />
       </div>
     </section>
   );
