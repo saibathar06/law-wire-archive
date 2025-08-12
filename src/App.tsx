@@ -10,6 +10,11 @@ import AdminLayout from "./pages/admin/AdminLayout";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import NewsList from "./pages/admin/NewsList";
 import NewsForm from "./pages/admin/NewsForm";
+import FairlawLayout from "./pages/FairlawLayout";
+import HomePage from "./pages/HomePage";
+import CategoryPage from "./pages/CategoryPage";
+import ArticlePage from "./pages/ArticlePage";
+import AboutPage from "./pages/AboutPage";
 
 const queryClient = new QueryClient();
 
@@ -20,7 +25,19 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Index />} />
+          {/* FAIRLAW Public Routes */}
+          <Route path="/" element={<FairlawLayout />}>
+            <Route index element={<HomePage />} />
+            <Route path="category/:category" element={<CategoryPage />} />
+            <Route path="category/:category/:subcategory" element={<CategoryPage />} />
+            <Route path="article/:id" element={<ArticlePage />} />
+            <Route path="about" element={<AboutPage />} />
+          </Route>
+          
+          {/* Legacy route - redirect to new layout */}
+          <Route path="/legacy" element={<Index />} />
+          
+          {/* Admin Routes */}
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin" element={<ProtectedRoute><AdminLayout /></ProtectedRoute>}>
             <Route index element={<NewsList />} />
@@ -28,6 +45,7 @@ const App = () => (
             <Route path="news/new" element={<NewsForm />} />
             <Route path="news/:id" element={<NewsForm />} />
           </Route>
+          
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
