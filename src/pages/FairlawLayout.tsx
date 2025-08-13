@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
-import Navigation from "@/components/layout/Navigation";
-import FairlawHero from "@/components/layout/FairlawHero";
+import CompactHeader from "@/components/layout/CompactHeader";
 import ContactModal from "@/components/modals/ContactModal";
 import Footer from "@/components/Footer";
 
@@ -10,8 +9,7 @@ const FairlawLayout = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <FairlawHero />
-      <Navigation onContactClick={() => setIsContactModalOpen(true)} />
+      <CompactHeader onContactClick={() => setIsContactModalOpen(true)} />
       <Outlet />
       <Footer />
       <ContactModal 
