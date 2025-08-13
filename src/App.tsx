@@ -15,6 +15,9 @@ import HomePage from "./pages/HomePage";
 import CategoryPage from "./pages/CategoryPage";
 import ArticlePage from "./pages/ArticlePage";
 import AboutPage from "./pages/AboutPage";
+import LegalUpdatesPage from "./pages/LegalUpdatesPage";
+import BlogsPage from "./pages/BlogsPage";
+import CaseCommentsPage from "./pages/CaseCommentsPage";
 
 const queryClient = new QueryClient();
 
@@ -28,6 +31,9 @@ const App = () => (
           {/* FAIRLAW Public Routes */}
           <Route path="/" element={<FairlawLayout />}>
             <Route index element={<HomePage />} />
+            <Route path="legal-updates" element={<LegalUpdatesPage />} />
+            <Route path="blogs" element={<BlogsPage />} />
+            <Route path="case-comments" element={<CaseCommentsPage />} />
             <Route path="category/:category" element={<CategoryPage />} />
             <Route path="category/:category/:subcategory" element={<CategoryPage />} />
             <Route path="article/:id" element={<ArticlePage />} />

@@ -116,6 +116,96 @@ export type Database = {
         }
         Relationships: []
       }
+      blogs: {
+        Row: {
+          author: string
+          created_at: string | null
+          full_content: string | null
+          id: number
+          image_url: string | null
+          is_breaking: boolean | null
+          is_trending: boolean | null
+          published_date: string | null
+          subcategory: string | null
+          summary: string | null
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          author: string
+          created_at?: string | null
+          full_content?: string | null
+          id?: never
+          image_url?: string | null
+          is_breaking?: boolean | null
+          is_trending?: boolean | null
+          published_date?: string | null
+          subcategory?: string | null
+          summary?: string | null
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          author?: string
+          created_at?: string | null
+          full_content?: string | null
+          id?: never
+          image_url?: string | null
+          is_breaking?: boolean | null
+          is_trending?: boolean | null
+          published_date?: string | null
+          subcategory?: string | null
+          summary?: string | null
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      case_comments: {
+        Row: {
+          author: string
+          created_at: string | null
+          full_content: string | null
+          id: number
+          image_url: string | null
+          is_breaking: boolean | null
+          is_trending: boolean | null
+          published_date: string | null
+          subcategory: string | null
+          summary: string | null
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          author: string
+          created_at?: string | null
+          full_content?: string | null
+          id?: never
+          image_url?: string | null
+          is_breaking?: boolean | null
+          is_trending?: boolean | null
+          published_date?: string | null
+          subcategory?: string | null
+          summary?: string | null
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          author?: string
+          created_at?: string | null
+          full_content?: string | null
+          id?: never
+          image_url?: string | null
+          is_breaking?: boolean | null
+          is_trending?: boolean | null
+          published_date?: string | null
+          subcategory?: string | null
+          summary?: string | null
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       contact_submissions: {
         Row: {
           created_at: string | null
@@ -137,6 +227,96 @@ export type Database = {
           id?: number
           message?: string
           name?: string
+        }
+        Relationships: []
+      }
+      fair_review: {
+        Row: {
+          author: string
+          created_at: string | null
+          full_content: string | null
+          id: number
+          image_url: string | null
+          is_breaking: boolean | null
+          is_trending: boolean | null
+          published_date: string | null
+          subcategory: string | null
+          summary: string | null
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          author: string
+          created_at?: string | null
+          full_content?: string | null
+          id?: never
+          image_url?: string | null
+          is_breaking?: boolean | null
+          is_trending?: boolean | null
+          published_date?: string | null
+          subcategory?: string | null
+          summary?: string | null
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          author?: string
+          created_at?: string | null
+          full_content?: string | null
+          id?: never
+          image_url?: string | null
+          is_breaking?: boolean | null
+          is_trending?: boolean | null
+          published_date?: string | null
+          subcategory?: string | null
+          summary?: string | null
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      legal_updates: {
+        Row: {
+          author: string
+          created_at: string | null
+          full_content: string | null
+          id: number
+          image_url: string | null
+          is_breaking: boolean | null
+          is_trending: boolean | null
+          published_date: string | null
+          subcategory: string
+          summary: string | null
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          author: string
+          created_at?: string | null
+          full_content?: string | null
+          id?: never
+          image_url?: string | null
+          is_breaking?: boolean | null
+          is_trending?: boolean | null
+          published_date?: string | null
+          subcategory: string
+          summary?: string | null
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          author?: string
+          created_at?: string | null
+          full_content?: string | null
+          id?: never
+          image_url?: string | null
+          is_breaking?: boolean | null
+          is_trending?: boolean | null
+          published_date?: string | null
+          subcategory?: string
+          summary?: string | null
+          title?: string
+          updated_at?: string | null
         }
         Relationships: []
       }
