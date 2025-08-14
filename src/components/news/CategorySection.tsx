@@ -12,12 +12,12 @@ interface CategorySectionProps {
 }
 
 const CategorySection = ({ title, articles, subcategories }: CategorySectionProps) => {
-  const [displayedCount, setDisplayedCount] = useState(9);
+  const [displayedCount, setDisplayedCount] = useState(15);
 
   if (!articles.length) return null;
 
   const loadMore = () => {
-    setDisplayedCount(prev => prev + 6);
+    setDisplayedCount(prev => prev + 12);
   };
 
   const formatDate = (dateString: string | null) => {

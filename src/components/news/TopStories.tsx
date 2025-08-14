@@ -25,7 +25,7 @@ const TopStories = ({ articles }: TopStoriesProps) => {
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center mb-8">
           <h2 className="text-2xl md:text-3xl font-bold text-foreground">
-            Today's Top Stories
+            Top Stories
           </h2>
           <Button 
             variant="outline" 

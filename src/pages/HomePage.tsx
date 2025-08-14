@@ -109,26 +109,26 @@ const HomePage = () => {
           {/* Legal Updates Section */}
           <CategorySection 
             title="Legal Updates" 
-            articles={legalUpdates} 
+            articles={legalUpdates.slice(0, 15)} 
             subcategories={['Supreme Court', 'High Court']}
           />
 
           {/* Blogs Section */}
           <CategorySection 
             title="Blogs" 
-            articles={blogs}
+            articles={blogs.slice(0, 15)}
           />
 
           {/* Case Comments Section */}
           <CategorySection 
             title="Case Comments" 
-            articles={caseComments}
+            articles={caseComments.slice(0, 15)}
           />
 
           {/* Fair Review Section */}
           <CategorySection 
             title="Fair Review" 
-            articles={fairReview}
+            articles={fairReview.slice(0, 15)}
           />
         </>
       )}
