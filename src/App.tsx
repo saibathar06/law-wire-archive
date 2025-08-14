@@ -34,6 +34,7 @@ const App = () => (
             <Route path="legal-updates" element={<LegalUpdatesPage />} />
             <Route path="blogs" element={<BlogsPage />} />
             <Route path="case-comments" element={<CaseCommentsPage />} />
+            <Route path="fair-review" element={<CategoryPage />} />
             <Route path="category/:category" element={<CategoryPage />} />
             <Route path="category/:category/:subcategory" element={<CategoryPage />} />
             <Route path="article/:id" element={<ArticlePage />} />

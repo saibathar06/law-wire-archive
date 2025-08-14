@@ -1,9 +1,10 @@
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import ArticleCard from "@/components/news/ArticleCard";
+import CategoryArticleCard from "@/components/news/CategoryArticleCard";
 import TrendingSidebar from "@/components/news/TrendingSidebar";
-import { useArticlesByCategory, useArticles } from "@/hooks/useArticles";
+import { useArticlesByCategory } from "@/hooks/useArticlesByCategory";
+import { useArticles } from "@/hooks/useArticles";
 import { Skeleton } from "@/components/ui/skeleton";
 
 const CategoryPage = () => {
@@ -32,6 +33,8 @@ const CategoryPage = () => {
     };
 
     const subCategoryNames: Record<string, string> = {
+      "supreme-court": "Supreme Court",
+      "high-court": "High Court",
       "constitutional-law": "Constitutional Law",
       "family-law": "Family Law",
       "adr-law": "ADR Law",
@@ -96,7 +99,7 @@ const CategoryPage = () => {
             <>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {displayedArticles.map((article) => (
-                  <ArticleCard key={article.id} article={article} />
+                  <CategoryArticleCard key={article.id} article={article} />
                 ))}
               </div>
               
