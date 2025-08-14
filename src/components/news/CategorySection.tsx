@@ -125,23 +125,23 @@ const CategorySection = ({ title, articles, subcategories }: CategorySectionProp
                   </Card>
                 ))}
               </div>
-
-              {/* Load More Button for each subcategory */}
-              {displayedCount < subcategoryArticles.length && (
-                <div className="text-center mt-8">
-                  <Button
-                    onClick={loadMore}
-                    variant="outline"
-                    size="lg"
-                    className="font-bold border-primary text-primary hover:bg-primary hover:text-primary-foreground"
-                  >
-                    Load More
-                  </Button>
-                </div>
-              )}
             </div>
           );
         })}
+
+        {/* Load More Button at the bottom of all sections */}
+        {displayedCount < articles.length && (
+          <div className="text-center mt-12">
+            <Button
+              onClick={loadMore}
+              variant="outline"
+              size="lg"
+              className="font-bold border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+            >
+              Load More
+            </Button>
+          </div>
+        )}
       </div>
     </section>
   );
