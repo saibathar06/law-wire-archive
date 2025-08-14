@@ -23,17 +23,9 @@ const TopStories = ({ articles }: TopStoriesProps) => {
   return (
     <section className="py-12">
       <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center mb-8">
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground">
-            Top Stories
-          </h2>
-          <Button 
-            variant="outline" 
-            className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
-          >
-            Load more
-          </Button>
-        </div>
+        <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-8">
+          Top Stories
+        </h2>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Breaking News - Large Card */}
@@ -106,6 +98,17 @@ const TopStories = ({ articles }: TopStoriesProps) => {
               </Card>
             ))}
           </div>
+        </div>
+
+        {/* Load More Button at the bottom */}
+        <div className="text-center mt-8">
+          <Button 
+            variant="outline" 
+            size="lg"
+            className="font-bold border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+          >
+            Load More
+          </Button>
         </div>
       </div>
     </section>
