@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { CategoryArticle, useLegalUpdates, useBlogs, useCaseComments, useFairReview } from "@/hooks/useCategoryData";
 import { Calendar, Tag } from "lucide-react";
@@ -11,6 +12,7 @@ const TopStories = ({}: TopStoriesProps) => {
   const { data: blogs = [] } = useBlogs();
   const { data: caseComments = [] } = useCaseComments();
   const { data: fairReview = [] } = useFairReview();
+  const [displayedCount, setDisplayedCount] = useState(6);
 
   // Combine all articles from different tables
   const allArticles = [...legalUpdates, ...blogs, ...caseComments, ...fairReview];
@@ -18,7 +20,12 @@ const TopStories = ({}: TopStoriesProps) => {
   if (!allArticles.length) return null;
 
   const breakingNews = allArticles.find(article => article.is_breaking);
-  const otherNews = allArticles.filter(article => !article.is_breaking).slice(0, 6);
+  const otherNews = allArticles.filter(article => !article.is_breaking);
+  const displayedOtherNews = otherNews.slice(0, displayedCount);
+
+  const loadMore = () => {
+    setDisplayedCount(prev => prev + 6);
+  };
 
   const formatDate = (dateString: string | null) => {
     if (!dateString) return "";
@@ -71,7 +78,7 @@ const TopStories = ({}: TopStoriesProps) => {
 
           {/* Other News - Small Cards */}
           <div className="space-y-4">
-            {otherNews.map((article) => (
+            {displayedOtherNews.map((article) => (
               <Card key={article.id} className="group hover:shadow-md transition-all duration-300 cursor-pointer overflow-hidden">
                 <div className="flex gap-4 p-4">
                   {article.image_url && (
@@ -102,15 +109,18 @@ const TopStories = ({}: TopStoriesProps) => {
         </div>
 
         {/* Load More Button at the bottom */}
-        <div className="text-center mt-8">
-          <Button 
-            variant="outline" 
-            size="lg"
-            className="font-bold border-primary text-primary hover:bg-primary hover:text-primary-foreground"
-          >
-            Load More
-          </Button>
-        </div>
+        {displayedCount < otherNews.length && (
+          <div className="text-center mt-8">
+            <Button 
+              variant="outline" 
+              size="lg"
+              onClick={loadMore}
+              className="font-bold border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+            >
+              Load More
+            </Button>
+          </div>
+        )}
       </div>
     </section>
   );
