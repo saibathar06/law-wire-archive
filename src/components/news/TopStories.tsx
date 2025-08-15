@@ -1,19 +1,24 @@
 import { Button } from "@/components/ui/button";
-import { Article } from "@/lib/supabase";
-import { CategoryArticle } from "@/hooks/useCategoryData";
+import { CategoryArticle, useLegalUpdates, useBlogs, useCaseComments, useFairReview } from "@/hooks/useCategoryData";
 import { Calendar, Tag } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
-interface TopStoriesProps {
-  articles: (Article | CategoryArticle)[];
-}
+interface TopStoriesProps {}
 
-const TopStories = ({ articles }: TopStoriesProps) => {
-  if (!articles.length) return null;
+const TopStories = ({}: TopStoriesProps) => {
+  const { data: legalUpdates = [] } = useLegalUpdates();
+  const { data: blogs = [] } = useBlogs();
+  const { data: caseComments = [] } = useCaseComments();
+  const { data: fairReview = [] } = useFairReview();
 
-  const breakingNews = articles.find(article => article.is_breaking);
-  const otherNews = articles.filter(article => !article.is_breaking).slice(0, 6);
+  // Combine all articles from different tables
+  const allArticles = [...legalUpdates, ...blogs, ...caseComments, ...fairReview];
+  
+  if (!allArticles.length) return null;
+
+  const breakingNews = allArticles.find(article => article.is_breaking);
+  const otherNews = allArticles.filter(article => !article.is_breaking).slice(0, 6);
 
   const formatDate = (dateString: string | null) => {
     if (!dateString) return "";

@@ -104,7 +104,7 @@ const HomePage = () => {
       ) : (
         <>
           {/* Top Stories Section */}
-          <TopStories articles={allArticles.slice(0, 7)} />
+          <TopStories />
 
           {/* Legal Updates Section */}
           <CategorySection 
