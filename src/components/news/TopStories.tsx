@@ -42,10 +42,6 @@ const TopStories = ({ articles }: TopStoriesProps) => {
               )}
               <div className="p-6">
                 <div className="flex items-center gap-3 mb-3">
-                  <Badge variant="destructive" className="bg-red-600 text-white">
-                    <Tag className="w-3 h-3 mr-1" />
-                    LIVE UPDATES
-                  </Badge>
                   <div className="flex items-center text-muted-foreground text-sm">
                     <Calendar className="w-4 h-4 mr-1" />
                     {formatDate(breakingNews.published_date)}
