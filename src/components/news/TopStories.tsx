@@ -4,6 +4,7 @@ import { CategoryArticle, useLegalUpdates, useBlogs, useCaseComments, useFairRev
 import { Calendar, Tag } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Link } from "react-router-dom";
 
 interface TopStoriesProps {}
 
@@ -41,7 +42,8 @@ const TopStories = ({}: TopStoriesProps) => {
 
         {/* Breaking News - Large Card */}
         {breakingNews && (
-          <Card className="group hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden mb-8">
+          <Link to={`/article/${breakingNews.id}`}>
+            <Card className="group hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden mb-8">
             {breakingNews.image_url && (
               <div className="aspect-video overflow-hidden">
                 <img 
@@ -73,12 +75,14 @@ const TopStories = ({}: TopStoriesProps) => {
               </p>
             </div>
           </Card>
+          </Link>
         )}
 
         {/* Other News - Grid Layout */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {displayedOtherNews.map((article) => (
-            <Card key={article.id} className="group hover:shadow-md transition-all duration-300 cursor-pointer overflow-hidden">
+            <Link key={article.id} to={`/article/${article.id}`}>
+              <Card className="group hover:shadow-md transition-all duration-300 cursor-pointer overflow-hidden">
               <div className="flex gap-4 p-4">
                 {article.image_url && (
                   <div className="flex-shrink-0 w-24 h-24 overflow-hidden rounded-lg">
@@ -103,6 +107,7 @@ const TopStories = ({}: TopStoriesProps) => {
                 </div>
               </div>
             </Card>
+            </Link>
           ))}
         </div>
 

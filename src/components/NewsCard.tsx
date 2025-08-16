@@ -1,8 +1,10 @@
 import { Calendar, Tag } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Link } from "react-router-dom";
 
 interface NewsCardProps {
+  id?: number;
   title: string;
   excerpt: string;
   category: string;
@@ -11,8 +13,8 @@ interface NewsCardProps {
   featured?: boolean;
 }
 
-const NewsCard = ({ title, excerpt, category, date, image, featured = false }: NewsCardProps) => {
-  return (
+const NewsCard = ({ id, title, excerpt, category, date, image, featured = false }: NewsCardProps) => {
+  const cardContent = (
     <Card className={`group hover:shadow-[var(--shadow-hover)] transition-all duration-300 cursor-pointer overflow-hidden ${
       featured ? "md:col-span-2 lg:col-span-2" : ""
     }`}>
@@ -51,6 +53,16 @@ const NewsCard = ({ title, excerpt, category, date, image, featured = false }: N
       </div>
     </Card>
   );
+
+  if (id) {
+    return (
+      <Link to={`/article/${id}`}>
+        {cardContent}
+      </Link>
+    );
+  }
+
+  return cardContent;
 };
 
 export default NewsCard;

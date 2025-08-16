@@ -9,7 +9,7 @@ const NewsGridContent = () => {
     queryFn: async () => {
       const { data, error } = await supabase
         .from("news")
-        .select("title, excerpt, category, cover_url, published_at")
+        .select("id, title, excerpt, category, cover_url, published_at")
         .eq("status","published")
         .order("published_at", { ascending: false })
         .limit(12);
@@ -19,6 +19,7 @@ const NewsGridContent = () => {
   });
 
   const items = (data || []).map((n) => ({
+    id: (n as any).id,
     title: (n as any).title,
     excerpt: (n as any).excerpt,
     category: (n as any).category,
