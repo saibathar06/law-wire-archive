@@ -31,7 +31,7 @@ export const useArticleById = (id: string | undefined) => {
         .from("articles")
         .select("*")
         .eq("id", parseInt(id))
-        .single();
+        .maybeSingle();
       
       if (error) {
         console.error("Error fetching article:", error);

@@ -7,10 +7,9 @@ const FeaturedNewsContent = () => {
     queryKey: ["news","featured"],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from("news")
-        .select("title, excerpt, category, cover_url, published_at")
-        .eq("status","published")
-        .order("published_at", { ascending: false })
+        .from("articles")
+        .select("title, summary, category, image_url, published_date")
+        .order("published_date", { ascending: false })
         .limit(3);
       if (error) throw error;
       return data || [];
@@ -19,10 +18,10 @@ const FeaturedNewsContent = () => {
 
   const items = (data || []).map((n, idx) => ({
     title: n.title,
-    excerpt: (n as any).excerpt,
+    excerpt: (n as any).summary,
     category: (n as any).category,
-    date: n.published_at ? new Date(n.published_at as any).toLocaleDateString() : "",
-    image: (n as any).cover_url || "/placeholder.svg",
+    date: (n as any).published_date ? new Date((n as any).published_date).toLocaleDateString() : "",
+    image: (n as any).image_url || "/placeholder.svg",
     featured: idx === 0,
   }));
 

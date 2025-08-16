@@ -8,10 +8,9 @@ const NewsGridContent = () => {
     queryKey: ["news","latest"],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from("news")
-        .select("id, title, excerpt, category, cover_url, published_at")
-        .eq("status","published")
-        .order("published_at", { ascending: false })
+        .from("articles")
+        .select("id, title, summary, category, image_url, published_date")
+        .order("published_date", { ascending: false })
         .limit(12);
       if (error) throw error;
       return data || [];
@@ -21,10 +20,10 @@ const NewsGridContent = () => {
   const items = (data || []).map((n) => ({
     id: (n as any).id,
     title: (n as any).title,
-    excerpt: (n as any).excerpt,
+    excerpt: (n as any).summary,
     category: (n as any).category,
-    date: (n as any).published_at ? new Date((n as any).published_at).toLocaleDateString() : "",
-    image: (n as any).cover_url || "/placeholder.svg",
+    date: (n as any).published_date ? new Date((n as any).published_date).toLocaleDateString() : "",
+    image: (n as any).image_url || "/placeholder.svg",
   }));
 
   return (
