@@ -54,7 +54,7 @@ const ArticlePage = () => {
         <div className="text-center">
           <h1 className="text-2xl font-bold text-foreground mb-4">Article Not Found</h1>
           <p className="text-muted-foreground mb-6">
-            The article you're looking for doesn't exist or has been removed.
+            The article you're looking for doesn't exist or has been removed. (ID: {id})
           </p>
           <Button asChild>
             <Link to="/">Return to Home</Link>
