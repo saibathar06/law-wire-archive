@@ -18,12 +18,12 @@ const NewsGridContent = () => {
   });
 
   const items = (data || []).map((n) => ({
-    id: (n as any).id,
-    title: (n as any).title,
-    excerpt: (n as any).summary,
-    category: (n as any).category,
-    date: (n as any).published_date ? new Date((n as any).published_date).toLocaleDateString() : "",
-    image: (n as any).image_url || "/placeholder.svg",
+    id: n.id,
+    title: n.title,
+    excerpt: n.summary,
+    category: n.category,
+    date: n.published_date ? new Date(n.published_date).toLocaleDateString() : "",
+    image: n.image_url || "/placeholder.svg",
   }));
 
   return (
