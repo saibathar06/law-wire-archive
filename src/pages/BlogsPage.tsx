@@ -91,7 +91,7 @@ const BlogsPage = () => {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredArticles.map((article) => (
-                <div key={`${article.id}-search`} className="border rounded-lg p-4 hover:shadow-md transition-shadow">
+                <a key={`blog-${article.id}-search`} href={`/article/${article.id}`} className="border rounded-lg p-4 hover:shadow-md transition-shadow">
                   {article.subcategory && (
                     <div className="mb-2">
                       <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded">
@@ -104,7 +104,7 @@ const BlogsPage = () => {
                   <p className="text-xs text-muted-foreground mt-2">
                     By {article.author} • {new Date(article.published_date || "").toLocaleDateString()}
                   </p>
-                </div>
+                </a>
               ))}
             </div>
           )}

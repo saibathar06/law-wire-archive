@@ -24,21 +24,67 @@ export const useArticles = () => {
 export const useArticleById = (id: string | undefined) => {
   return useQuery({
     queryKey: ["article", id],
-    queryFn: async (): Promise<Article | null> => {
+    queryFn: async (): Promise<any | null> => {
       if (!id) return null;
       
-      const { data, error } = await supabase
+      const articleId = parseInt(id);
+      
+      // Search in articles table first
+      const { data: articlesData, error: articlesError } = await supabase
         .from("articles")
         .select("*")
-        .eq("id", parseInt(id))
+        .eq("id", articleId)
         .maybeSingle();
       
-      if (error) {
-        console.error("Error fetching article:", error);
-        throw error;
+      if (!articlesError && articlesData) {
+        return { ...articlesData, source_table: 'articles' };
       }
       
-      return data;
+      // Search in legal_updates table
+      const { data: legalData, error: legalError } = await supabase
+        .from("legal_updates")
+        .select("*")
+        .eq("id", articleId)
+        .maybeSingle();
+      
+      if (!legalError && legalData) {
+        return { ...legalData, source_table: 'legal_updates' };
+      }
+      
+      // Search in blogs table
+      const { data: blogsData, error: blogsError } = await supabase
+        .from("blogs")
+        .select("*")
+        .eq("id", articleId)
+        .maybeSingle();
+      
+      if (!blogsError && blogsData) {
+        return { ...blogsData, source_table: 'blogs' };
+      }
+      
+      // Search in case_comments table
+      const { data: caseData, error: caseError } = await supabase
+        .from("case_comments")
+        .select("*")
+        .eq("id", articleId)
+        .maybeSingle();
+      
+      if (!caseError && caseData) {
+        return { ...caseData, source_table: 'case_comments' };
+      }
+      
+      // Search in fair_review table
+      const { data: fairData, error: fairError } = await supabase
+        .from("fair_review")
+        .select("*")
+        .eq("id", articleId)
+        .maybeSingle();
+      
+      if (!fairError && fairData) {
+        return { ...fairData, source_table: 'fair_review' };
+      }
+      
+      return null; // Article not found in any table
     },
     enabled: !!id,
   });

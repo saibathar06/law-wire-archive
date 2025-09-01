@@ -109,25 +109,33 @@ const HomePage = () => {
           {/* Legal Updates Section */}
           <CategorySection 
             title="Legal Updates" 
-            articles={legalUpdates}
+            articles={legalUpdates.slice(0, 12)}
+            showViewMore={true}
+            viewMoreLink="/legal-updates"
           />
 
           {/* Blogs Section */}
           <CategorySection 
             title="Blogs" 
-            articles={blogs}
+            articles={blogs.slice(0, 12)}
+            showViewMore={true}
+            viewMoreLink="/blogs"
           />
 
           {/* Case Comments Section */}
           <CategorySection 
             title="Case Comments" 
-            articles={caseComments}
+            articles={caseComments.slice(0, 12)}
+            showViewMore={true}
+            viewMoreLink="/case-comments"
           />
 
           {/* Fair Review Section */}
           <CategorySection 
             title="Fair Review" 
-            articles={fairReview}
+            articles={fairReview.slice(0, 12)}
+            showViewMore={true}
+            viewMoreLink="/fair-review"
           />
         </>
       )}

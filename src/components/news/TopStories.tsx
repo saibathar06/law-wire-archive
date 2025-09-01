@@ -15,8 +15,13 @@ const TopStories = ({}: TopStoriesProps) => {
   const { data: fairReview = [] } = useFairReview();
   const [displayedCount, setDisplayedCount] = useState(6);
 
-  // Combine all articles from different tables
-  const allArticles = [...legalUpdates, ...blogs, ...caseComments, ...fairReview];
+  // Combine all articles from different tables with unique keys
+  const allArticles = [
+    ...legalUpdates.map(article => ({ ...article, uniqueKey: `legal-${article.id}` })),
+    ...blogs.map(article => ({ ...article, uniqueKey: `blog-${article.id}` })),
+    ...caseComments.map(article => ({ ...article, uniqueKey: `case-${article.id}` })),
+    ...fairReview.map(article => ({ ...article, uniqueKey: `fair-${article.id}` }))
+  ];
   
   if (!allArticles.length) return null;
 
@@ -83,7 +88,7 @@ const TopStories = ({}: TopStoriesProps) => {
         {/* Other News - Grid Layout */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {displayedOtherNews.map((article) => (
-            <Link key={article.id} to={`/article/${article.id}`}>
+            <Link key={article.uniqueKey} to={`/article/${article.id}`}>
               <Card className="group hover:shadow-md transition-all duration-300 cursor-pointer overflow-hidden">
               <div className="flex gap-4 p-4">
                 {article.image_url && (

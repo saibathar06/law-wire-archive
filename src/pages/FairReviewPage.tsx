@@ -3,22 +3,23 @@ import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import CategorySection from "@/components/news/CategorySection";
-import { useLegalUpdates, useLegalUpdatesBySubcategory } from "@/hooks/useCategoryData";
+import { useFairReview } from "@/hooks/useCategoryData";
 
-const LegalUpdatesPage = () => {
-  const { data: allLegalUpdates = [], isLoading } = useLegalUpdates();
-  const { data: supremeCourtUpdates = [] } = useLegalUpdatesBySubcategory("Supreme Court");
-  const { data: highCourtUpdates = [] } = useLegalUpdatesBySubcategory("High Court");
+const FairReviewPage = () => {
+  const { data: allFairReview = [], isLoading } = useFairReview();
   const [searchQuery, setSearchQuery] = useState("");
 
+  // Get unique subcategories from fair review
+  const subcategories = [...new Set(allFairReview.map(review => review.subcategory).filter(Boolean))];
+
   const filteredArticles = searchQuery.trim() 
-    ? allLegalUpdates.filter(article =>
+    ? allFairReview.filter(article =>
         article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         (article.summary && article.summary.toLowerCase().includes(searchQuery.toLowerCase())) ||
         article.author.toLowerCase().includes(searchQuery.toLowerCase()) ||
         (article.subcategory && article.subcategory.toLowerCase().includes(searchQuery.toLowerCase()))
       )
-    : allLegalUpdates;
+    : allFairReview;
 
   if (isLoading) {
     return (
@@ -31,7 +32,7 @@ const LegalUpdatesPage = () => {
           <Skeleton className="w-full max-w-2xl h-12 rounded-full mx-auto" />
         </div>
         <div className="space-y-12">
-          {Array.from({ length: 2 }).map((_, i) => (
+          {Array.from({ length: 3 }).map((_, i) => (
             <div key={i} className="space-y-6">
               <Skeleton className="h-8 w-48" />
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -55,10 +56,10 @@ const LegalUpdatesPage = () => {
       {/* Page Header */}
       <div className="mb-8">
         <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-          Legal Updates
+          Fair Review
         </h1>
         <p className="text-lg text-muted-foreground">
-          Stay updated with the latest legal developments from Supreme Court and High Courts across India
+          Comprehensive reviews and analysis of legal developments and judicial decisions
         </p>
       </div>
 
@@ -67,7 +68,7 @@ const LegalUpdatesPage = () => {
         <div className="relative max-w-2xl mx-auto">
           <Input
             type="text"
-            placeholder="Search legal updates..."
+            placeholder="Search fair reviews..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full pl-12 text-lg h-12 rounded-full border-2"
@@ -82,20 +83,22 @@ const LegalUpdatesPage = () => {
           {filteredArticles.length === 0 ? (
             <div className="text-center py-16">
               <Search className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-              <h3 className="text-2xl font-semibold text-foreground mb-2">No Legal Updates Found</h3>
+              <h3 className="text-2xl font-semibold text-foreground mb-2">No Fair Reviews Found</h3>
               <p className="text-muted-foreground">
-                We couldn't find any legal updates matching your search.
+                We couldn't find any fair reviews matching your search.
               </p>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredArticles.map((article) => (
-                <a key={`legal-${article.id}-search`} href={`/article/${article.id}`} className="border rounded-lg p-4 hover:shadow-md transition-shadow">
-                  <div className="mb-2">
-                    <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded">
-                      {article.subcategory}
-                    </span>
-                  </div>
+                <a key={`fair-${article.id}-search`} href={`/article/${article.id}`} className="border rounded-lg p-4 hover:shadow-md transition-shadow">
+                  {article.subcategory && (
+                    <div className="mb-2">
+                      <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded">
+                        {article.subcategory}
+                      </span>
+                    </div>
+                  )}
                   <h3 className="font-semibold mb-2 line-clamp-2">{article.title}</h3>
                   <p className="text-muted-foreground text-sm line-clamp-3">{article.summary}</p>
                   <p className="text-xs text-muted-foreground mt-2">
@@ -108,27 +111,11 @@ const LegalUpdatesPage = () => {
         </div>
       ) : (
         <div className="space-y-16">
-          {/* Supreme Court Section */}
-          {supremeCourtUpdates.length > 0 && (
-            <CategorySection 
-              title="Supreme Court" 
-              articles={supremeCourtUpdates}
-            />
-          )}
-
-          {/* High Court Section */}
-          {highCourtUpdates.length > 0 && (
-            <CategorySection 
-              title="High Court" 
-              articles={highCourtUpdates}
-            />
-          )}
-
-          {/* All Legal Updates Section */}
+          {/* Show fair reviews grouped by subcategory */}
           <CategorySection 
-            title="All Legal Updates" 
-            articles={allLegalUpdates} 
-            subcategories={['Supreme Court', 'High Court']}
+            title="All Fair Reviews" 
+            articles={allFairReview} 
+            subcategories={subcategories.length > 0 ? subcategories : undefined}
           />
         </div>
       )}
@@ -136,4 +123,4 @@ const LegalUpdatesPage = () => {
   );
 };
 
-export default LegalUpdatesPage;
+export default FairReviewPage;
