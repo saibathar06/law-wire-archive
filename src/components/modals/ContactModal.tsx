@@ -20,7 +20,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { CheckCircle } from "lucide-react";
-import { supabase } from "@/lib/supabase";
+import { supabase } from "@/integrations/supabase/client";
 
 const contactSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -51,7 +51,11 @@ const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
   const onSubmit = async (values: ContactFormValues) => {
     setIsSubmitting(true);
     try {
-      const { error } = await supabase.from('contact_submissions').insert([values]);
+      const { error } = await supabase.from('contact_submissions').insert({
+        name: values.name,
+        email: values.email,
+        message: values.message
+      });
       
       if (error) {
         console.error('Error submitting contact form:', error);

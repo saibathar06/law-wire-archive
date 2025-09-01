@@ -1,8 +1,13 @@
+import { useState } from "react";
 import { Search, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-const Header = () => {
+interface HeaderProps {
+  onContactClick?: () => void;
+}
+
+const Header = ({ onContactClick }: HeaderProps) => {
   return (
     <header className="bg-background border-b border-border sticky top-0 z-50">
       <div className="container mx-auto px-4">
@@ -32,6 +37,14 @@ const Header = () => {
             <a href="#" className="text-muted-foreground hover:text-legal-navy transition-colors">
               Judgments
             </a>
+            {onContactClick && (
+              <button
+                onClick={onContactClick}
+                className="text-muted-foreground hover:text-legal-navy transition-colors"
+              >
+                Contact
+              </button>
+            )}
           </nav>
 
           {/* Search */}

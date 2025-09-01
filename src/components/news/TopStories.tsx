@@ -40,39 +40,41 @@ const TopStories = ({}: TopStoriesProps) => {
           Top Stories
         </h2>
 
-        {/* Breaking News - Large Card */}
+        {/* Breaking News - Medium Card */}
         {breakingNews && (
           <Link to={`/article/${breakingNews.id}`}>
-            <Card className="group hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden mb-8">
-            {breakingNews.image_url && (
-              <div className="aspect-video overflow-hidden">
-                <img 
-                  src={breakingNews.image_url} 
-                  alt={breakingNews.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-              </div>
-            )}
-            <div className="p-6">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="flex items-center text-muted-foreground text-sm">
-                  <Calendar className="w-4 h-4 mr-1" />
-                  {formatDate(breakingNews.published_date)}
+            <Card className="group hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden mb-8 max-w-2xl mx-auto">
+            <div className="flex gap-4 p-6">
+              {breakingNews.image_url && (
+                <div className="flex-shrink-0 w-48 h-32 overflow-hidden rounded-lg">
+                  <img 
+                    src={breakingNews.image_url} 
+                    alt={breakingNews.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
                 </div>
-              </div>
-              
-              <h3 className="font-bold text-foreground group-hover:text-primary transition-colors mb-3 text-xl lg:text-2xl line-clamp-3">
-                {breakingNews.title}
-              </h3>
-              
-              <p className="text-muted-foreground text-base line-clamp-4">
-                {breakingNews.summary}
-              </p>
+              )}
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="flex items-center text-muted-foreground text-sm">
+                    <Calendar className="w-4 h-4 mr-1" />
+                    {formatDate(breakingNews.published_date)}
+                  </div>
+                </div>
+                
+                <h3 className="font-bold text-foreground group-hover:text-primary transition-colors mb-3 text-lg lg:text-xl line-clamp-2">
+                  {breakingNews.title}
+                </h3>
+                
+                <p className="text-muted-foreground text-sm line-clamp-3">
+                  {breakingNews.summary}
+                </p>
 
-              <p className="text-sm text-muted-foreground mt-3">
-                {(breakingNews as CategoryArticle).subcategory && `${(breakingNews as CategoryArticle).subcategory} • `}
-                {formatDate(breakingNews.published_date)}
-              </p>
+                <p className="text-xs text-muted-foreground mt-2">
+                  {(breakingNews as CategoryArticle).subcategory && `${(breakingNews as CategoryArticle).subcategory} • `}
+                  {formatDate(breakingNews.published_date)}
+                </p>
+              </div>
             </div>
           </Card>
           </Link>

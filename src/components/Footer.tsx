@@ -46,11 +46,11 @@ const Footer = () => {
           <div>
             <h4 className="text-lg font-semibold mb-4">Categories</h4>
             <ul className="space-y-2 text-primary-foreground/80">
+              <li><a href="#" className="hover:text-legal-gold transition-colors">ADR Law</a></li>
               <li><a href="#" className="hover:text-legal-gold transition-colors">Constitutional Law</a></li>
-              <li><a href="#" className="hover:text-legal-gold transition-colors">Criminal Law</a></li>
               <li><a href="#" className="hover:text-legal-gold transition-colors">Corporate Law</a></li>
-              <li><a href="#" className="hover:text-legal-gold transition-colors">Civil Rights</a></li>
-              <li><a href="#" className="hover:text-legal-gold transition-colors">Environmental Law</a></li>
+              <li><a href="#" className="hover:text-legal-gold transition-colors">Family Law</a></li>
+              <li><a href="#" className="hover:text-legal-gold transition-colors">Tech Law</a></li>
             </ul>
           </div>
 

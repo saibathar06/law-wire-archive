@@ -109,8 +109,7 @@ const HomePage = () => {
           {/* Legal Updates Section */}
           <CategorySection 
             title="Legal Updates" 
-            articles={legalUpdates} 
-            subcategories={['Supreme Court', 'High Court']}
+            articles={legalUpdates}
           />
 
           {/* Blogs Section */}
