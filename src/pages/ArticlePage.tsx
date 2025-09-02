@@ -99,10 +99,10 @@ const ArticlePage = () => {
             By {article.author} | {formatDate(article.published_date)}
           </div>
           
-          <div className="prose max-w-none text-card-foreground leading-relaxed">
-            {article.full_content.split('\n').map((paragraph, index) => (
-              <p key={index} className="mb-4 last:mb-0">
-                {paragraph}
+          <div className="prose prose-lg max-w-none text-card-foreground leading-relaxed">
+            {article.full_content.split('\n').filter(paragraph => paragraph.trim() !== '').map((paragraph, index) => (
+              <p key={index} className="mb-4 last:mb-0 text-base md:text-lg leading-7 md:leading-8">
+                {paragraph.trim()}
               </p>
             ))}
           </div>

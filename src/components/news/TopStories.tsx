@@ -45,13 +45,13 @@ const TopStories = ({}: TopStoriesProps) => {
           Top Stories
         </h2>
 
-        {/* Breaking News - Medium Card */}
+        {/* Breaking News - Large Featured Card */}
         {breakingNews && (
           <Link to={`/article/${breakingNews.id}`}>
-            <Card className="group hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden mb-8 max-w-2xl mx-auto">
-            <div className="flex gap-4 p-6">
+            <Card className="group hover:shadow-xl transition-all duration-300 cursor-pointer overflow-hidden mb-12 max-w-5xl mx-auto border-2 border-primary/20">
+            <div className="flex flex-col md:flex-row gap-6 p-6 md:p-8">
               {breakingNews.image_url && (
-                <div className="flex-shrink-0 w-48 h-32 overflow-hidden rounded-lg">
+                <div className="flex-shrink-0 w-full md:w-80 h-48 md:h-56 overflow-hidden rounded-lg">
                   <img 
                     src={breakingNews.image_url} 
                     alt={breakingNews.title}
@@ -60,25 +60,35 @@ const TopStories = ({}: TopStoriesProps) => {
                 </div>
               )}
               <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-3 mb-3">
+                <div className="flex items-center gap-3 mb-4">
+                  <Badge variant="destructive" className="text-xs font-bold uppercase tracking-wider">
+                    Breaking News
+                  </Badge>
                   <div className="flex items-center text-muted-foreground text-sm">
                     <Calendar className="w-4 h-4 mr-1" />
                     {formatDate(breakingNews.published_date)}
                   </div>
                 </div>
                 
-                <h3 className="font-bold text-foreground group-hover:text-primary transition-colors mb-3 text-lg lg:text-xl line-clamp-2">
+                <h3 className="font-bold text-foreground group-hover:text-primary transition-colors mb-4 text-xl md:text-2xl lg:text-3xl leading-tight">
                   {breakingNews.title}
                 </h3>
                 
-                <p className="text-muted-foreground text-sm line-clamp-3">
+                <p className="text-muted-foreground text-base md:text-lg line-clamp-4 mb-4">
                   {breakingNews.summary}
                 </p>
 
-                <p className="text-xs text-muted-foreground mt-2">
-                  {(breakingNews as CategoryArticle).subcategory && `${(breakingNews as CategoryArticle).subcategory} • `}
-                  {formatDate(breakingNews.published_date)}
-                </p>
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  {(breakingNews as CategoryArticle).subcategory && (
+                    <>
+                      <Badge variant="outline" className="text-xs">
+                        {(breakingNews as CategoryArticle).subcategory}
+                      </Badge>
+                      <span>•</span>
+                    </>
+                  )}
+                  <span>{formatDate(breakingNews.published_date)}</span>
+                </div>
               </div>
             </div>
           </Card>
