@@ -45,24 +45,24 @@ const TopStories = ({}: TopStoriesProps) => {
           Top Stories
         </h2>
 
-        {/* Breaking News - Large Featured Card */}
+        {/* Breaking News - Extra Large Featured Card */}
         {breakingNews && (
           <Link to={`/article/${breakingNews.id}`}>
-            <Card className="group hover:shadow-xl transition-all duration-300 cursor-pointer overflow-hidden mb-12 max-w-5xl mx-auto border-2 border-primary/20">
-            <div className="flex flex-col md:flex-row gap-6 p-6 md:p-8">
+            <Card className="group hover:shadow-2xl transition-all duration-500 cursor-pointer overflow-hidden mb-16 max-w-6xl mx-auto border-4 border-destructive/30 bg-gradient-to-br from-destructive/5 to-transparent">
+            <div className="flex flex-col xl:flex-row gap-8 p-8 md:p-12">
               {breakingNews.image_url && (
-                <div className="flex-shrink-0 w-full md:w-80 h-48 md:h-56 overflow-hidden rounded-lg">
+                <div className="flex-shrink-0 w-full xl:w-96 h-64 md:h-72 xl:h-80 overflow-hidden rounded-xl">
                   <img 
                     src={breakingNews.image_url} 
                     alt={breakingNews.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
               )}
               <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-3 mb-4">
-                  <Badge variant="destructive" className="text-xs font-bold uppercase tracking-wider">
-                    Breaking News
+                <div className="flex items-center gap-4 mb-6">
+                  <Badge variant="destructive" className="text-sm font-bold uppercase tracking-wider px-4 py-2">
+                    🚨 Breaking News
                   </Badge>
                   <div className="flex items-center text-muted-foreground text-sm">
                     <Calendar className="w-4 h-4 mr-1" />
@@ -70,24 +70,24 @@ const TopStories = ({}: TopStoriesProps) => {
                   </div>
                 </div>
                 
-                <h3 className="font-bold text-foreground group-hover:text-primary transition-colors mb-4 text-xl md:text-2xl lg:text-3xl leading-tight">
+                <h3 className="font-bold text-foreground group-hover:text-primary transition-colors mb-6 text-2xl md:text-3xl lg:text-4xl xl:text-5xl leading-tight">
                   {breakingNews.title}
                 </h3>
                 
-                <p className="text-muted-foreground text-base md:text-lg line-clamp-4 mb-4">
+                <p className="text-muted-foreground text-lg md:text-xl line-clamp-4 mb-6">
                   {breakingNews.summary}
                 </p>
 
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <div className="flex items-center gap-3 text-base text-muted-foreground">
                   {(breakingNews as CategoryArticle).subcategory && (
                     <>
-                      <Badge variant="outline" className="text-xs">
+                      <Badge variant="outline" className="text-sm">
                         {(breakingNews as CategoryArticle).subcategory}
                       </Badge>
                       <span>•</span>
                     </>
                   )}
-                  <span>{formatDate(breakingNews.published_date)}</span>
+                  <span>By {breakingNews.author}</span>
                 </div>
               </div>
             </div>

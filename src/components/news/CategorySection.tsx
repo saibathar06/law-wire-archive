@@ -69,38 +69,51 @@ const CategorySection = ({ title, articles, subcategories, showViewMore = false,
               )}
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {/* Breaking News - Featured Card */}
+                {/* Breaking News - Extra Large Featured Card */}
                 {breakingNews && (
                   <Link to={`/article/${breakingNews.id}`}>
-                    <Card className="group hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden md:col-span-2 lg:col-span-2">
-                      {breakingNews.image_url && (
-                        <div className="aspect-video overflow-hidden">
-                          <img 
-                            src={breakingNews.image_url} 
-                            alt={breakingNews.title}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                          />
-                        </div>
-                      )}
-                      <div className="p-6">
-                        <div className="flex items-center gap-3 mb-3">
-                          <Badge variant="destructive" className="bg-red-600 text-white">
-                            <Tag className="w-3 h-3 mr-1" />
-                            BREAKING
-                          </Badge>
-                          <div className="flex items-center text-muted-foreground text-sm">
-                            <Calendar className="w-4 h-4 mr-1" />
-                            {formatDate(breakingNews.published_date)}
+                    <Card className="group hover:shadow-2xl transition-all duration-500 cursor-pointer overflow-hidden md:col-span-2 lg:col-span-3 mb-8 border-4 border-destructive/30 bg-gradient-to-br from-destructive/5 to-transparent">
+                      <div className="flex flex-col lg:flex-row gap-6 p-6 md:p-10">
+                        {breakingNews.image_url && (
+                          <div className="flex-shrink-0 w-full lg:w-80 h-56 lg:h-64 overflow-hidden rounded-xl">
+                            <img 
+                              src={breakingNews.image_url} 
+                              alt={breakingNews.title}
+                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            />
+                          </div>
+                        )}
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-3 mb-4">
+                            <Badge variant="destructive" className="text-sm font-bold uppercase tracking-wider px-4 py-2">
+                              🚨 Breaking News
+                            </Badge>
+                            <div className="flex items-center text-muted-foreground text-sm">
+                              <Calendar className="w-4 h-4 mr-1" />
+                              {formatDate(breakingNews.published_date)}
+                            </div>
+                          </div>
+                          
+                          <h3 className="font-bold text-foreground group-hover:text-primary transition-colors mb-4 text-xl md:text-2xl lg:text-3xl leading-tight">
+                            {breakingNews.title}
+                          </h3>
+                          
+                          <p className="text-muted-foreground text-base md:text-lg line-clamp-3 mb-4">
+                            {breakingNews.summary}
+                          </p>
+
+                          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                            {breakingNews.subcategory && (
+                              <>
+                                <Badge variant="outline" className="text-xs">
+                                  {breakingNews.subcategory}
+                                </Badge>
+                                <span>•</span>
+                              </>
+                            )}
+                            <span>By {breakingNews.author}</span>
                           </div>
                         </div>
-                        
-                        <h3 className="font-bold text-foreground group-hover:text-primary transition-colors mb-3 text-xl lg:text-2xl line-clamp-2">
-                          {breakingNews.title}
-                        </h3>
-                        
-                        <p className="text-muted-foreground text-base line-clamp-3">
-                          {breakingNews.summary}
-                        </p>
                       </div>
                     </Card>
                   </Link>

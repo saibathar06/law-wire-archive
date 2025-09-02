@@ -100,11 +100,12 @@ const ArticlePage = () => {
           </div>
           
           <div className="prose prose-lg max-w-none text-card-foreground leading-relaxed">
-            {article.full_content.split('\n').filter(paragraph => paragraph.trim() !== '').map((paragraph, index) => (
-              <p key={index} className="mb-4 last:mb-0 text-base md:text-lg leading-7 md:leading-8">
-                {paragraph.trim()}
-              </p>
-            ))}
+            <div 
+              className="text-base md:text-lg leading-7 md:leading-8 whitespace-pre-wrap"
+              dangerouslySetInnerHTML={{ 
+                __html: article.full_content.replace(/\n/g, '<br />') 
+              }}
+            />
           </div>
         </div>
       </article>
