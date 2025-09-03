@@ -65,50 +65,63 @@ const ArticlePage = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-4xl">
-      <Button 
-        asChild
-        variant="outline" 
-        className="mb-6"
-      >
-        <Link to="/">
-          <ArrowLeft className="mr-2 h-4 w-4" />
-          Back to News
-        </Link>
-      </Button>
+    <div className="min-h-screen bg-background">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8 max-w-4xl">
+        <Button 
+          asChild
+          variant="outline" 
+          className="mb-6 md:mb-8"
+        >
+          <Link to="/">
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            Back to News
+          </Link>
+        </Button>
 
-      <article className="bg-card rounded-lg overflow-hidden">
-        <img
-          src={article.image_url || 'https://images.unsplash.com/photo-1589391886645-d51941baf7fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80'}
-          alt={article.title}
-          className="w-full h-auto max-h-96 object-cover"
-        />
-        
-        <div className="p-6 md:p-8">
-          {article.sub_category && (
-            <Badge variant="destructive" className="mb-4 text-sm font-bold uppercase tracking-wider">
-              {article.sub_category}
-            </Badge>
-          )}
+        <article className="bg-card rounded-lg overflow-hidden shadow-lg">
+          <img
+            src={article.image_url || 'https://images.unsplash.com/photo-1589391886645-d51941baf7fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80'}
+            alt={article.title}
+            className="w-full h-auto max-h-[50vh] md:max-h-96 object-cover"
+          />
           
-          <h1 className="font-serif text-3xl md:text-4xl font-bold text-card-foreground mb-4 leading-tight">
-            {article.title}
-          </h1>
-          
-          <div className="text-sm text-muted-foreground mb-6 pb-6 border-b border-border">
-            By {article.author} | {formatDate(article.published_date)}
+          <div className="p-4 sm:p-6 md:p-8 lg:p-10">
+            {article.sub_category && (
+              <Badge variant="destructive" className="mb-4 md:mb-6 text-xs sm:text-sm font-bold uppercase tracking-wider">
+                {article.sub_category}
+              </Badge>
+            )}
+            
+            <h1 className="font-serif text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-card-foreground mb-4 md:mb-6 leading-tight sm:leading-tight md:leading-tight">
+              {article.title}
+            </h1>
+            
+            <div className="text-xs sm:text-sm text-muted-foreground mb-6 md:mb-8 pb-4 md:pb-6 border-b border-border">
+              By <span className="font-medium">{article.author}</span> | {formatDate(article.published_date)}
+            </div>
+            
+            <div className="prose prose-sm sm:prose md:prose-lg max-w-none text-card-foreground">
+              <div 
+                className="text-base sm:text-lg md:text-xl leading-relaxed sm:leading-relaxed md:leading-relaxed space-y-4 md:space-y-6"
+                style={{
+                  fontSize: 'clamp(16px, 4vw, 20px)',
+                  lineHeight: 'clamp(1.6, 5vw, 1.8)',
+                  wordBreak: 'break-word',
+                  overflowWrap: 'break-word',
+                  hyphens: 'auto'
+                }}
+                dangerouslySetInnerHTML={{ 
+                  __html: article.full_content
+                    .split('\n')
+                    .filter(paragraph => paragraph.trim() !== '')
+                    .map(paragraph => `<p class="mb-4 md:mb-6 text-justify sm:text-left">${paragraph.trim()}</p>`)
+                    .join('') 
+                }}
+              />
+            </div>
           </div>
-          
-          <div className="prose prose-lg max-w-none text-card-foreground leading-relaxed">
-            <div 
-              className="text-base md:text-lg leading-7 md:leading-8 whitespace-pre-wrap"
-              dangerouslySetInnerHTML={{ 
-                __html: article.full_content.replace(/\n/g, '<br />') 
-              }}
-            />
-          </div>
-        </div>
-      </article>
+        </article>
+      </div>
     </div>
   );
 };

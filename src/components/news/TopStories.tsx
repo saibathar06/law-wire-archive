@@ -45,13 +45,13 @@ const TopStories = ({}: TopStoriesProps) => {
           Top Stories
         </h2>
 
-        {/* Breaking News - Compact Featured Card */}
+        {/* Breaking News - Large Featured Card */}
         {breakingNews && (
           <Link to={`/article/${breakingNews.id}`}>
-            <Card className="group hover:shadow-xl transition-all duration-300 cursor-pointer overflow-hidden mb-8 max-w-4xl mx-auto border-2 border-destructive/40 bg-gradient-to-r from-destructive/5 to-transparent">
-            <div className="flex flex-col sm:flex-row gap-4 p-4 md:p-6">
+            <Card className="group hover:shadow-xl transition-all duration-300 cursor-pointer overflow-hidden mb-10 max-w-5xl mx-auto border-2 border-destructive/40 bg-gradient-to-r from-destructive/5 to-transparent">
+            <div className="flex flex-col lg:flex-row gap-6 p-6 md:p-8">
               {breakingNews.image_url && (
-                <div className="flex-shrink-0 w-full sm:w-72 h-40 sm:h-36 overflow-hidden rounded-lg">
+                <div className="flex-shrink-0 w-full lg:w-96 h-64 lg:h-56 overflow-hidden rounded-lg">
                   <img 
                     src={breakingNews.image_url} 
                     alt={breakingNews.title}
@@ -60,34 +60,34 @@ const TopStories = ({}: TopStoriesProps) => {
                 </div>
               )}
               <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-3 mb-3">
-                  <Badge variant="destructive" className="text-xs font-bold uppercase tracking-wider">
+                <div className="flex items-center gap-3 mb-4">
+                  <Badge variant="destructive" className="text-sm font-bold uppercase tracking-wider px-3 py-1">
                     🚨 Breaking News
                   </Badge>
                   <div className="flex items-center text-muted-foreground text-sm">
-                    <Calendar className="w-4 h-4 mr-1" />
+                    <Calendar className="w-4 h-4 mr-2" />
                     {formatDate(breakingNews.published_date)}
                   </div>
                 </div>
                 
-                <h3 className="font-bold text-foreground group-hover:text-primary transition-colors mb-3 text-xl md:text-2xl leading-tight">
+                <h3 className="font-bold text-foreground group-hover:text-primary transition-colors mb-4 text-2xl md:text-3xl lg:text-4xl leading-tight">
                   {breakingNews.title}
                 </h3>
                 
-                <p className="text-muted-foreground text-base line-clamp-2 mb-3">
+                <p className="text-muted-foreground text-lg md:text-xl line-clamp-3 mb-4 leading-relaxed">
                   {breakingNews.summary}
                 </p>
 
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <div className="flex items-center gap-3 text-sm text-muted-foreground">
                   {(breakingNews as CategoryArticle).subcategory && (
                     <>
-                      <Badge variant="outline" className="text-xs">
+                      <Badge variant="outline" className="text-sm px-3 py-1">
                         {(breakingNews as CategoryArticle).subcategory}
                       </Badge>
                       <span>•</span>
                     </>
                   )}
-                  <span>By {breakingNews.author}</span>
+                  <span className="font-medium">By {breakingNews.author}</span>
                 </div>
               </div>
             </div>
