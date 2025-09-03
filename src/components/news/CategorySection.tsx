@@ -71,52 +71,54 @@ const CategorySection = ({ title, articles, subcategories, showViewMore = false,
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {/* Breaking News - Large Featured Card */}
                 {breakingNews && (
-                  <Link to={`/article/${breakingNews.id}`}>
-                    <Card className="group hover:shadow-xl transition-all duration-300 cursor-pointer overflow-hidden md:col-span-2 lg:col-span-3 mb-8 border-2 border-destructive/40 bg-gradient-to-r from-destructive/5 to-transparent">
-                      <div className="flex flex-col lg:flex-row gap-6 p-6 md:p-8">
-                        {breakingNews.image_url && (
-                          <div className="flex-shrink-0 w-full lg:w-96 h-64 lg:h-56 overflow-hidden rounded-lg">
-                            <img 
-                              src={breakingNews.image_url} 
-                              alt={breakingNews.title}
-                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                            />
-                          </div>
-                        )}
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-3 mb-4">
-                            <Badge variant="destructive" className="text-sm font-bold uppercase tracking-wider px-3 py-1">
-                              🚨 Breaking News
-                            </Badge>
-                            <div className="flex items-center text-muted-foreground text-sm">
-                              <Calendar className="w-4 h-4 mr-2" />
-                              {formatDate(breakingNews.published_date)}
+                  <div className="md:col-span-2 lg:col-span-3 mb-8">
+                    <Link to={`/article/${breakingNews.id}`}>
+                      <Card className="group hover:shadow-xl transition-all duration-300 cursor-pointer overflow-hidden border-2 border-destructive/40 bg-gradient-to-r from-destructive/5 to-transparent">
+                        <div className="flex flex-col lg:flex-row gap-6 p-6 md:p-8">
+                          {breakingNews.image_url && (
+                            <div className="flex-shrink-0 w-full lg:w-96 h-64 lg:h-56 overflow-hidden rounded-lg">
+                              <img 
+                                src={breakingNews.image_url} 
+                                alt={breakingNews.title}
+                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                              />
+                            </div>
+                          )}
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-3 mb-4">
+                              <Badge variant="destructive" className="text-sm font-bold uppercase tracking-wider px-3 py-1">
+                                🚨 Breaking News
+                              </Badge>
+                              <div className="flex items-center text-muted-foreground text-sm">
+                                <Calendar className="w-4 h-4 mr-2" />
+                                {formatDate(breakingNews.published_date)}
+                              </div>
+                            </div>
+                            
+                            <h3 className="font-bold text-foreground group-hover:text-primary transition-colors mb-4 text-2xl md:text-3xl lg:text-4xl leading-tight">
+                              {breakingNews.title}
+                            </h3>
+                            
+                            <p className="text-muted-foreground text-lg md:text-xl line-clamp-3 mb-4 leading-relaxed">
+                              {breakingNews.summary}
+                            </p>
+
+                            <div className="flex items-center gap-3 text-sm text-muted-foreground">
+                              {breakingNews.subcategory && (
+                                <>
+                                  <Badge variant="outline" className="text-sm px-3 py-1">
+                                    {breakingNews.subcategory}
+                                  </Badge>
+                                  <span>•</span>
+                                </>
+                              )}
+                              <span className="font-medium">By {breakingNews.author}</span>
                             </div>
                           </div>
-                          
-                          <h3 className="font-bold text-foreground group-hover:text-primary transition-colors mb-4 text-2xl md:text-3xl lg:text-4xl leading-tight">
-                            {breakingNews.title}
-                          </h3>
-                          
-                          <p className="text-muted-foreground text-lg md:text-xl line-clamp-3 mb-4 leading-relaxed">
-                            {breakingNews.summary}
-                          </p>
-
-                          <div className="flex items-center gap-3 text-sm text-muted-foreground">
-                            {breakingNews.subcategory && (
-                              <>
-                                <Badge variant="outline" className="text-sm px-3 py-1">
-                                  {breakingNews.subcategory}
-                                </Badge>
-                                <span>•</span>
-                              </>
-                            )}
-                            <span className="font-medium">By {breakingNews.author}</span>
-                          </div>
                         </div>
-                      </div>
-                    </Card>
-                  </Link>
+                      </Card>
+                    </Link>
+                  </div>
                 )}
 
                 {/* Regular News - Standard Cards */}
