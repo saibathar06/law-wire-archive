@@ -109,20 +109,12 @@ const ArticlePage = () => {
             
             <div className="prose prose-sm sm:prose md:prose-lg max-w-none text-card-foreground">
               <div 
-                className="article-content"
-                style={{
-                  fontSize: 'clamp(16px, 2.5vw, 18px)',
-                  lineHeight: '1.6',
-                  wordBreak: 'break-word',
-                  overflowWrap: 'break-word',
-                  hyphens: 'auto',
-                  textAlign: 'justify'
-                }}
+                className="article-content text-base sm:text-lg leading-relaxed"
                 dangerouslySetInnerHTML={{ 
                   __html: article.full_content
                     .split('\n')
                     .filter(paragraph => paragraph.trim() !== '')
-                    .map(paragraph => `<p style="margin-bottom: 1.5rem; line-height: 1.6;">${paragraph.trim()}</p>`)
+                    .map(paragraph => `<p class="mb-6 leading-relaxed">${paragraph.trim()}</p>`)
                     .join('') 
                 }}
               />
