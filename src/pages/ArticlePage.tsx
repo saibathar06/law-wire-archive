@@ -65,63 +65,50 @@ const ArticlePage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="w-full max-w-4xl mx-auto px-4 sm:px-5 md:px-6 lg:px-8 py-4 sm:py-6 md:py-8">
-        <Button 
-          asChild
-          variant="outline" 
-          className="mb-4 sm:mb-6 md:mb-8"
-        >
-          <Link to="/">
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to News
-          </Link>
-        </Button>
+    <div className="container mx-auto px-4 py-8 max-w-4xl">
+      <Button 
+        asChild
+        variant="outline" 
+        className="mb-6"
+      >
+        <Link to="/">
+          <ArrowLeft className="mr-2 h-4 w-4" />
+          Back to News
+        </Link>
+      </Button>
 
-        <article className="bg-card rounded-lg overflow-hidden shadow-lg max-w-[800px] mx-auto">
-          <div className="w-full text-center">
-            <img
-              src={article.image_url || 'https://images.unsplash.com/photo-1589391886645-d51941baf7fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80'}
-              alt={article.title}
-              className="w-full h-auto max-w-full max-h-[40vh] sm:max-h-[50vh] md:max-h-96 object-cover mx-auto"
-              style={{ height: 'auto' }}
-            />
+      <article className="bg-card rounded-lg overflow-hidden">
+        <img
+          src={article.image_url || 'https://images.unsplash.com/photo-1589391886645-d51941baf7fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80'}
+          alt={article.title}
+          className="w-full h-auto max-h-96 object-cover"
+        />
+        
+        <div className="p-6 md:p-8">
+          {article.sub_category && (
+            <Badge variant="destructive" className="mb-4 text-sm font-bold uppercase tracking-wider">
+              {article.sub_category}
+            </Badge>
+          )}
+          
+          <h1 className="font-serif text-3xl md:text-4xl font-bold text-card-foreground mb-4 leading-tight">
+            {article.title}
+          </h1>
+          
+          <div className="text-sm text-muted-foreground mb-6 pb-6 border-b border-border">
+            By {article.author} | {formatDate(article.published_date)}
           </div>
           
-          <div className="px-4 sm:px-5 md:px-8 lg:px-12 py-6 sm:py-8 md:py-10">
-            {article.sub_category && (
-              <Badge variant="destructive" className="mb-4 md:mb-6 text-xs sm:text-sm font-bold uppercase tracking-wider">
-                {article.sub_category}
-              </Badge>
-            )}
-            
-            <h1 className="font-serif font-bold text-card-foreground mb-4 md:mb-6 leading-tight"
-                style={{ 
-                  fontSize: 'clamp(1.5rem, 5vw, 2.5rem)',
-                  lineHeight: 'clamp(1.2, 4vw, 1.3)'
-                }}>
-              {article.title}
-            </h1>
-            
-            <div className="text-xs sm:text-sm md:text-base text-muted-foreground mb-6 md:mb-8 pb-4 md:pb-6 border-b border-border">
-              By <span className="font-medium">{article.author}</span> | {formatDate(article.published_date)}
-            </div>
-            
-            <div className="prose prose-sm sm:prose md:prose-lg max-w-none text-card-foreground">
-              <div 
-                className="article-content text-base sm:text-lg leading-relaxed"
-                dangerouslySetInnerHTML={{ 
-                  __html: article.full_content
-                    .split('\n')
-                    .filter(paragraph => paragraph.trim() !== '')
-                    .map(paragraph => `<p class="mb-6 leading-relaxed">${paragraph.trim()}</p>`)
-                    .join('') 
-                }}
-              />
-            </div>
+          <div className="prose prose-lg max-w-none text-card-foreground leading-relaxed">
+            <div 
+              className="text-base md:text-lg leading-7 md:leading-8 whitespace-pre-wrap"
+              dangerouslySetInnerHTML={{ 
+                __html: article.full_content.replace(/\n/g, '<br />') 
+              }}
+            />
           </div>
-        </article>
-      </div>
+        </div>
+      </article>
     </div>
   );
 };
