@@ -116,6 +116,7 @@ const CaseCommentsPage = () => {
             title="All Case Comments" 
             articles={allCaseComments} 
             subcategories={subcategories.length > 0 ? subcategories : undefined}
+            tableName="case_comments"
           />
         </div>
       )}

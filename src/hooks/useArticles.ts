@@ -21,67 +21,42 @@ export const useArticles = () => {
   });
 };
 
-export const useArticleById = (id: string | undefined) => {
+export const useArticleById = (id: string | undefined, table?: 'articles' | 'legal_updates' | 'blogs' | 'case_comments' | 'fair_review') => {
   return useQuery({
-    queryKey: ["article", id],
+    queryKey: ["article", id, table],
     queryFn: async (): Promise<any | null> => {
       if (!id) return null;
       
       const articleId = parseInt(id);
       
-      // Search in articles table first
-      const { data: articlesData, error: articlesError } = await supabase
-        .from("articles")
-        .select("*")
-        .eq("id", articleId)
-        .maybeSingle();
-      
-      if (!articlesError && articlesData) {
-        return { ...articlesData, source_table: 'articles' };
+      // If table is specified, search in that specific table first
+      if (table) {
+        const { data, error } = await supabase
+          .from(table)
+          .select("*")
+          .eq("id", articleId)
+          .maybeSingle();
+        
+        if (!error && data) {
+          return { ...data, source_table: table };
+        }
       }
       
-      // Search in legal_updates table
-      const { data: legalData, error: legalError } = await supabase
-        .from("legal_updates")
-        .select("*")
-        .eq("id", articleId)
-        .maybeSingle();
+      // Search in all tables in priority order (most recent content first)
+      const tables: ('case_comments' | 'blogs' | 'legal_updates' | 'fair_review' | 'articles')[] = ['case_comments', 'blogs', 'legal_updates', 'fair_review', 'articles'];
       
-      if (!legalError && legalData) {
-        return { ...legalData, source_table: 'legal_updates' };
-      }
-      
-      // Search in blogs table
-      const { data: blogsData, error: blogsError } = await supabase
-        .from("blogs")
-        .select("*")
-        .eq("id", articleId)
-        .maybeSingle();
-      
-      if (!blogsError && blogsData) {
-        return { ...blogsData, source_table: 'blogs' };
-      }
-      
-      // Search in case_comments table
-      const { data: caseData, error: caseError } = await supabase
-        .from("case_comments")
-        .select("*")
-        .eq("id", articleId)
-        .maybeSingle();
-      
-      if (!caseError && caseData) {
-        return { ...caseData, source_table: 'case_comments' };
-      }
-      
-      // Search in fair_review table
-      const { data: fairData, error: fairError } = await supabase
-        .from("fair_review")
-        .select("*")
-        .eq("id", articleId)
-        .maybeSingle();
-      
-      if (!fairError && fairData) {
-        return { ...fairData, source_table: 'fair_review' };
+      for (const tableName of tables) {
+        if (tableName === table) continue; // Skip if already searched above
+        
+        const { data, error } = await supabase
+          .from(tableName)
+          .select("*")
+          .eq("id", articleId)
+          .maybeSingle();
+        
+        if (!error && data) {
+          return { ...data, source_table: tableName };
+        }
       }
       
       return null; // Article not found in any table

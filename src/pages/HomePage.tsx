@@ -112,6 +112,7 @@ const HomePage = () => {
             articles={legalUpdates.slice(0, 12)}
             showViewMore={true}
             viewMoreLink="/legal-updates"
+            tableName="legal_updates"
           />
 
           {/* Blogs Section */}
@@ -120,6 +121,7 @@ const HomePage = () => {
             articles={blogs.slice(0, 12)}
             showViewMore={true}
             viewMoreLink="/blogs"
+            tableName="blogs"
           />
 
           {/* Case Comments Section */}
@@ -128,6 +130,7 @@ const HomePage = () => {
             articles={caseComments.slice(0, 12)}
             showViewMore={true}
             viewMoreLink="/case-comments"
+            tableName="case_comments"
           />
 
           {/* Fair Review Section */}
@@ -136,6 +139,7 @@ const HomePage = () => {
             articles={fairReview.slice(0, 12)}
             showViewMore={true}
             viewMoreLink="/fair-review"
+            tableName="fair_review"
           />
         </>
       )}

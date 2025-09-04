@@ -116,6 +116,7 @@ const FairReviewPage = () => {
             title="All Fair Reviews" 
             articles={allFairReview} 
             subcategories={subcategories.length > 0 ? subcategories : undefined}
+            tableName="fair_review"
           />
         </div>
       )}

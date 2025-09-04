@@ -90,7 +90,7 @@ const LegalUpdatesPage = () => {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredArticles.map((article) => (
-                <a key={`legal-${article.id}-search`} href={`/article/${article.id}`} className="border rounded-lg p-4 hover:shadow-md transition-shadow">
+                <a key={`legal-${article.id}-search`} href={`/article/legal_updates/${article.id}`} className="border rounded-lg p-4 hover:shadow-md transition-shadow">
                   <div className="mb-2">
                     <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded">
                       {article.subcategory}
@@ -113,6 +113,7 @@ const LegalUpdatesPage = () => {
             <CategorySection 
               title="Supreme Court" 
               articles={supremeCourtUpdates}
+              tableName="legal_updates"
             />
           )}
 
@@ -121,6 +122,7 @@ const LegalUpdatesPage = () => {
             <CategorySection 
               title="High Court" 
               articles={highCourtUpdates}
+              tableName="legal_updates"
             />
           )}
 
@@ -129,6 +131,7 @@ const LegalUpdatesPage = () => {
             title="All Legal Updates" 
             articles={allLegalUpdates} 
             subcategories={['Supreme Court', 'High Court']}
+            tableName="legal_updates"
           />
         </div>
       )}

@@ -12,9 +12,10 @@ interface CategorySectionProps {
   subcategories?: string[];
   showViewMore?: boolean;
   viewMoreLink?: string;
+  tableName: string; // Add table name to determine correct URLs
 }
 
-const CategorySection = ({ title, articles, subcategories, showViewMore = false, viewMoreLink }: CategorySectionProps) => {
+const CategorySection = ({ title, articles, subcategories, showViewMore = false, viewMoreLink, tableName }: CategorySectionProps) => {
   const [displayedCount, setDisplayedCount] = useState(15);
 
   if (!articles.length) return null;
@@ -71,7 +72,7 @@ const CategorySection = ({ title, articles, subcategories, showViewMore = false,
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {/* Breaking News - Properly Sized Featured Card */}
                 {breakingNews && (
-                  <Link to={`/article/${breakingNews.id}`}>
+                  <Link to={`/article/${tableName}/${breakingNews.id}`}>
                     <Card className="group hover:shadow-xl transition-all duration-300 cursor-pointer overflow-hidden md:col-span-2 lg:col-span-3 mb-8 max-w-5xl mx-auto border-2 border-destructive/40 bg-gradient-to-r from-destructive/5 to-transparent">
                       <div className="flex flex-col sm:flex-row gap-6 p-6 md:p-8">
                         {breakingNews.image_url && (
@@ -98,7 +99,7 @@ const CategorySection = ({ title, articles, subcategories, showViewMore = false,
                             {breakingNews.title}
                           </h3>
                           
-                          <p className="text-muted-foreground text-base md:text-lg line-clamp-3 mb-4 leading-relaxed">
+                          <p className="text-muted-foreground text-base md:text-lg mb-4 leading-relaxed">
                             {breakingNews.summary}
                           </p>
 
@@ -121,7 +122,7 @@ const CategorySection = ({ title, articles, subcategories, showViewMore = false,
 
                 {/* Regular News - Standard Cards */}
                 {displayedArticles.map((article) => (
-                  <Link key={article.id} to={`/article/${article.id}`}>
+                  <Link key={article.id} to={`/article/${tableName}/${article.id}`}>
                     <Card className="group hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden">
                       {article.image_url && (
                         <div className="aspect-video overflow-hidden">

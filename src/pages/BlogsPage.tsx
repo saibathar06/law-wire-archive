@@ -116,6 +116,7 @@ const BlogsPage = () => {
             title="All Blogs" 
             articles={allBlogs} 
             subcategories={subcategories.length > 0 ? subcategories : undefined}
+            tableName="blogs"
           />
         </div>
       )}

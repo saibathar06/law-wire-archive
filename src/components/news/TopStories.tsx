@@ -15,12 +15,12 @@ const TopStories = ({}: TopStoriesProps) => {
   const { data: fairReview = [] } = useFairReview();
   const [displayedCount, setDisplayedCount] = useState(6);
 
-  // Combine all articles from different tables with unique keys
+  // Combine all articles from different tables with unique keys and table names
   const allArticles = [
-    ...legalUpdates.map(article => ({ ...article, uniqueKey: `legal-${article.id}` })),
-    ...blogs.map(article => ({ ...article, uniqueKey: `blog-${article.id}` })),
-    ...caseComments.map(article => ({ ...article, uniqueKey: `case-${article.id}` })),
-    ...fairReview.map(article => ({ ...article, uniqueKey: `fair-${article.id}` }))
+    ...legalUpdates.map(article => ({ ...article, uniqueKey: `legal-${article.id}`, tableName: 'legal_updates' })),
+    ...blogs.map(article => ({ ...article, uniqueKey: `blog-${article.id}`, tableName: 'blogs' })),
+    ...caseComments.map(article => ({ ...article, uniqueKey: `case-${article.id}`, tableName: 'case_comments' })),
+    ...fairReview.map(article => ({ ...article, uniqueKey: `fair-${article.id}`, tableName: 'fair_review' }))
   ];
   
   if (!allArticles.length) return null;
@@ -47,7 +47,7 @@ const TopStories = ({}: TopStoriesProps) => {
 
         {/* Breaking News - Compact Featured Card */}
         {breakingNews && (
-          <Link to={`/article/${breakingNews.id}`}>
+          <Link to={`/article/${breakingNews.tableName}/${breakingNews.id}`}>
             <Card className="group hover:shadow-xl transition-all duration-300 cursor-pointer overflow-hidden mb-8 max-w-5xl mx-auto border-2 border-destructive/40 bg-gradient-to-r from-destructive/5 to-transparent">
             <div className="flex flex-col sm:flex-row gap-6 p-6 md:p-8">
               {breakingNews.image_url && (
@@ -74,7 +74,7 @@ const TopStories = ({}: TopStoriesProps) => {
                   {breakingNews.title}
                 </h3>
                 
-                <p className="text-muted-foreground text-base md:text-lg line-clamp-3 mb-4 leading-relaxed">
+                <p className="text-muted-foreground text-base md:text-lg mb-4 leading-relaxed">
                   {breakingNews.summary}
                 </p>
 
@@ -98,7 +98,7 @@ const TopStories = ({}: TopStoriesProps) => {
         {/* Other News - Grid Layout */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {displayedOtherNews.map((article) => (
-            <Link key={article.uniqueKey} to={`/article/${article.id}`}>
+            <Link key={article.uniqueKey} to={`/article/${article.tableName}/${article.id}`}>
               <Card className="group hover:shadow-md transition-all duration-300 cursor-pointer overflow-hidden">
               <div className="flex gap-4 p-4">
                 {article.image_url && (

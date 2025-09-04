@@ -6,8 +6,8 @@ import { useArticleById } from "@/hooks/useArticles";
 import { Skeleton } from "@/components/ui/skeleton";
 
 const ArticlePage = () => {
-  const { id } = useParams();
-  const { data: article, isLoading, error } = useArticleById(id);
+  const { id, table } = useParams<{ id: string; table?: string }>();
+  const { data: article, isLoading, error } = useArticleById(id, table as any);
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
