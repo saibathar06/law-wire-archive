@@ -73,7 +73,7 @@ const CategorySection = ({ title, articles, subcategories, showViewMore = false,
                 {/* Breaking News - Properly Sized Featured Card */}
                 {breakingNews && (
                   <Link to={`/article/${tableName}/${breakingNews.id}`}>
-                    <Card className="group hover:shadow-xl transition-all duration-300 cursor-pointer overflow-hidden md:col-span-2 lg:col-span-3 mb-8 max-w-5xl mx-auto border-2 border-destructive/40 bg-gradient-to-r from-destructive/5 to-transparent">
+                    <Card className="group hover:shadow-xl transition-all duration-300 cursor-pointer overflow-hidden md:col-span-2 lg:col-span-3 mb-8 max-w-full mx-auto border-2 border-destructive/40 bg-gradient-to-r from-destructive/5 to-transparent">
                       <div className="flex flex-col sm:flex-row gap-6 p-6 md:p-8">
                         {breakingNews.image_url && (
                           <div className="flex-shrink-0 w-full sm:w-80 h-48 sm:h-44 overflow-hidden rounded-lg">
