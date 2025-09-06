@@ -320,12 +320,45 @@ export type Database = {
         }
         Relationships: []
       }
+      top_stories: {
+        Row: {
+          article_id: number
+          created_at: string | null
+          display_order: number | null
+          id: number
+          is_breaking: boolean | null
+          source_table: string
+          updated_at: string | null
+        }
+        Insert: {
+          article_id: number
+          created_at?: string | null
+          display_order?: number | null
+          id?: never
+          is_breaking?: boolean | null
+          source_table: string
+          updated_at?: string | null
+        }
+        Update: {
+          article_id?: number
+          created_at?: string | null
+          display_order?: number | null
+          id?: never
+          is_breaking?: boolean | null
+          source_table?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      populate_top_stories: {
+        Args: Record<PropertyKey, never>
+        Returns: undefined
+      }
     }
     Enums: {
       [_ in never]: never
