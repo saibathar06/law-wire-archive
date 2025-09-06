@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useArticleById } from "@/hooks/useArticles";
 import { Skeleton } from "@/components/ui/skeleton";
+import ReactMarkdown from "react-markdown";
 
 const ArticlePage = () => {
   const { id, table } = useParams<{ id: string; table?: string }>();
@@ -100,12 +101,11 @@ const ArticlePage = () => {
           </div>
           
           <div className="prose prose-lg max-w-none text-card-foreground leading-relaxed">
-            <div 
-              className="text-base md:text-lg leading-7 md:leading-8 whitespace-pre-wrap"
-              dangerouslySetInnerHTML={{ 
-                __html: article.full_content.replace(/\n/g, '<br />') 
-              }}
-            />
+            <div className="text-base md:text-lg leading-7 md:leading-8 [&>h1]:text-2xl [&>h1]:md:text-3xl [&>h1]:font-bold [&>h1]:mb-4 [&>h2]:text-xl [&>h2]:md:text-2xl [&>h2]:font-semibold [&>h2]:mb-3 [&>h3]:text-lg [&>h3]:md:text-xl [&>h3]:font-medium [&>h3]:mb-2 [&>p]:mb-4 [&>ul]:mb-4 [&>ol]:mb-4 [&>li]:mb-1 [&>strong]:font-semibold [&>em]:italic [&>u]:underline break-words">
+              <ReactMarkdown>
+                {article.full_content}
+              </ReactMarkdown>
+            </div>
           </div>
         </div>
       </article>
