@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { CategoryArticle, useLegalUpdates, useBlogs, useCaseComments, useFairReview } from "@/hooks/useCategoryData";
+import { useTopStories } from "@/hooks/useTopStories";
 import { Calendar, Tag } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -9,28 +9,18 @@ import { Link } from "react-router-dom";
 interface TopStoriesProps {}
 
 const TopStories = ({}: TopStoriesProps) => {
-  const { data: legalUpdates = [] } = useLegalUpdates();
-  const { data: blogs = [] } = useBlogs();
-  const { data: caseComments = [] } = useCaseComments();
-  const { data: fairReview = [] } = useFairReview();
   const [displayedCount, setDisplayedCount] = useState(6);
-
-  // Combine all articles from different tables with unique keys and table names
-  const allArticles = [
-    ...legalUpdates.map(article => ({ ...article, uniqueKey: `legal-${article.id}`, tableName: 'legal_updates' })),
-    ...blogs.map(article => ({ ...article, uniqueKey: `blog-${article.id}`, tableName: 'blogs' })),
-    ...caseComments.map(article => ({ ...article, uniqueKey: `case-${article.id}`, tableName: 'case_comments' })),
-    ...fairReview.map(article => ({ ...article, uniqueKey: `fair-${article.id}`, tableName: 'fair_review' }))
-  ];
+  const { data: topStories = [], isLoading } = useTopStories();
   
-  if (!allArticles.length) return null;
+  if (isLoading) return null;
+  if (!topStories.length) return null;
 
-  const breakingNews = allArticles.find(article => article.is_breaking);
-  const otherNews = allArticles.filter(article => !article.is_breaking);
+  const breakingNews = topStories.find(article => article.is_breaking);
+  const otherNews = topStories.filter(article => !article.is_breaking);
   const displayedOtherNews = otherNews.slice(0, displayedCount);
 
   const loadMore = () => {
-    setDisplayedCount(prev => prev + 6);
+    setDisplayedCount(prev => prev + 2);
   };
 
   const formatDate = (dateString: string | null) => {
@@ -79,10 +69,10 @@ const TopStories = ({}: TopStoriesProps) => {
                 </p>
 
                 <div className="flex items-center gap-3 text-sm text-muted-foreground">
-                  {(breakingNews as CategoryArticle).subcategory && (
+                  {breakingNews.subcategory && (
                     <>
                       <Badge variant="outline" className="text-sm px-2 py-1">
-                        {(breakingNews as CategoryArticle).subcategory}
+                        {breakingNews.subcategory}
                       </Badge>
                       <span>•</span>
                     </>
@@ -118,7 +108,7 @@ const TopStories = ({}: TopStoriesProps) => {
                     {article.summary}
                   </p>
                   <p className="text-xs text-muted-foreground">
-                    {(article as CategoryArticle).subcategory && `${(article as CategoryArticle).subcategory} • `}
+                    {article.subcategory && `${article.subcategory} • `}
                     {formatDate(article.published_date)}
                   </p>
                 </div>
