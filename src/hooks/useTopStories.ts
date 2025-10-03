@@ -17,11 +17,11 @@ export interface TopStoryArticle {
   tableName: string;
 }
 
-export const useTopStories = (limit?: number) => {
+export const useTopStories = (limit: number = 12) => {
   return useQuery({
     queryKey: ["top-stories", limit],
     queryFn: async () => {
-      let query = supabase
+      const { data: topStoriesData, error: topStoriesError } = await supabase
         .from("top_stories")
         .select(`
           article_id,
@@ -30,13 +30,8 @@ export const useTopStories = (limit?: number) => {
           display_order,
           created_at
         `)
-        .order("display_order", { ascending: true });
-        
-      if (limit) {
-        query = query.limit(limit);
-      }
-      
-      const { data: topStoriesData, error: topStoriesError } = await query;
+        .order("display_order", { ascending: true })
+        .limit(limit);
       
       if (topStoriesError) throw topStoriesError;
       if (!topStoriesData) return [];
@@ -73,14 +68,6 @@ export const useTopStories = (limit?: number) => {
         } else if (topStory.source_table === 'fair_review') {
           const { data, error } = await supabase
             .from('fair_review')
-            .select('*')
-            .eq('id', topStory.article_id)
-            .single();
-          if (error) throw error;
-          articleData = data;
-        } else if (topStory.source_table === 'articles') {
-          const { data, error } = await supabase
-            .from('articles')
             .select('*')
             .eq('id', topStory.article_id)
             .single();

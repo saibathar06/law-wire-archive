@@ -14,108 +14,6 @@ export type Database = {
   }
   public: {
     Tables: {
-      advertisements: {
-        Row: {
-          ad_code: string
-          ad_name: string
-          created_at: string
-          id: number
-          is_active: boolean | null
-        }
-        Insert: {
-          ad_code: string
-          ad_name: string
-          created_at?: string
-          id?: number
-          is_active?: boolean | null
-        }
-        Update: {
-          ad_code?: string
-          ad_name?: string
-          created_at?: string
-          id?: number
-          is_active?: boolean | null
-        }
-        Relationships: []
-      }
-      articles: {
-        Row: {
-          author: string
-          category: string | null
-          created_at: string | null
-          full_content: string | null
-          id: number
-          image_url: string | null
-          is_breaking: boolean | null
-          is_trending: boolean | null
-          published_date: string | null
-          sub_category: string | null
-          summary: string | null
-          title: string
-          updated_at: string | null
-        }
-        Insert: {
-          author: string
-          category?: string | null
-          created_at?: string | null
-          full_content?: string | null
-          id?: number
-          image_url?: string | null
-          is_breaking?: boolean | null
-          is_trending?: boolean | null
-          published_date?: string | null
-          sub_category?: string | null
-          summary?: string | null
-          title: string
-          updated_at?: string | null
-        }
-        Update: {
-          author?: string
-          category?: string | null
-          created_at?: string | null
-          full_content?: string | null
-          id?: number
-          image_url?: string | null
-          is_breaking?: boolean | null
-          is_trending?: boolean | null
-          published_date?: string | null
-          sub_category?: string | null
-          summary?: string | null
-          title?: string
-          updated_at?: string | null
-        }
-        Relationships: []
-      }
-      author_submissions: {
-        Row: {
-          contact_number: string | null
-          created_at: string
-          education: string | null
-          email: string | null
-          id: number
-          name: string | null
-          qualifications: string | null
-        }
-        Insert: {
-          contact_number?: string | null
-          created_at?: string
-          education?: string | null
-          email?: string | null
-          id?: number
-          name?: string | null
-          qualifications?: string | null
-        }
-        Update: {
-          contact_number?: string | null
-          created_at?: string
-          education?: string | null
-          email?: string | null
-          id?: number
-          name?: string | null
-          qualifications?: string | null
-        }
-        Relationships: []
-      }
       blogs: {
         Row: {
           author: string
@@ -355,6 +253,14 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      add_to_top_stories: {
+        Args: {
+          p_article_id: number
+          p_published_date: string
+          p_source_table: string
+        }
+        Returns: undefined
+      }
       populate_top_stories: {
         Args: Record<PropertyKey, never>
         Returns: undefined

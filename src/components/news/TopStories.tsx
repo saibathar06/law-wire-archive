@@ -9,19 +9,20 @@ import { Link } from "react-router-dom";
 interface TopStoriesProps {}
 
 const TopStories = ({}: TopStoriesProps) => {
-  const [displayedCount, setDisplayedCount] = useState(6);
-  const { data: topStories = [], isLoading } = useTopStories();
+  const [limit, setLimit] = useState(12);
+  const { data: topStories = [], isLoading } = useTopStories(limit);
   
   if (isLoading) return null;
   if (!topStories.length) return null;
 
   const breakingNews = topStories.find(article => article.is_breaking);
   const otherNews = topStories.filter(article => !article.is_breaking);
-  const displayedOtherNews = otherNews.slice(0, displayedCount);
 
   const loadMore = () => {
-    setDisplayedCount(prev => prev + 2);
+    setLimit(prev => prev + 8); // Load 2 more from each of 4 tables = 8 total
   };
+
+  const hasMore = topStories.length >= limit;
 
   const formatDate = (dateString: string | null) => {
     if (!dateString) return "";
@@ -87,7 +88,7 @@ const TopStories = ({}: TopStoriesProps) => {
 
         {/* Other News - Grid Layout */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {displayedOtherNews.map((article) => (
+          {otherNews.map((article) => (
             <Link key={article.uniqueKey} to={`/article/${article.tableName}/${article.id}`}>
               <Card className="group hover:shadow-md transition-all duration-300 cursor-pointer overflow-hidden">
               <div className="flex gap-4 p-4">
@@ -119,7 +120,7 @@ const TopStories = ({}: TopStoriesProps) => {
         </div>
 
         {/* Load More Button at the bottom */}
-        {displayedCount < otherNews.length && (
+        {hasMore && (
           <div className="text-center mt-8">
             <Button 
               variant="outline" 
@@ -127,7 +128,7 @@ const TopStories = ({}: TopStoriesProps) => {
               onClick={loadMore}
               className="font-bold border-primary text-primary hover:bg-primary hover:text-primary-foreground"
             >
-              Load More
+              Load More Stories
             </Button>
           </div>
         )}
