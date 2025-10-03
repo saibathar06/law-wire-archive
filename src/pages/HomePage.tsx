@@ -109,36 +109,36 @@ const HomePage = () => {
           {/* Legal Updates Section */}
           <CategorySection 
             title="Legal Updates" 
-            articles={legalUpdates.slice(0, 12)}
+            articles={legalUpdates.slice(0, 24)}
             showViewMore={true}
-            viewMoreLink="/legal-updates"
+            viewMoreLink="/category/legal-updates"
             tableName="legal_updates"
           />
 
           {/* Blogs Section */}
           <CategorySection 
             title="Blogs" 
-            articles={blogs.slice(0, 12)}
+            articles={blogs.slice(0, 24)}
             showViewMore={true}
-            viewMoreLink="/blogs"
+            viewMoreLink="/category/blogs"
             tableName="blogs"
           />
 
           {/* Case Comments Section */}
           <CategorySection 
             title="Case Comments" 
-            articles={caseComments.slice(0, 12)}
+            articles={caseComments.slice(0, 24)}
             showViewMore={true}
-            viewMoreLink="/case-comments"
+            viewMoreLink="/category/case-comments"
             tableName="case_comments"
           />
 
           {/* Fair Review Section */}
           <CategorySection 
             title="Fair Review" 
-            articles={fairReview.slice(0, 12)}
+            articles={fairReview.slice(0, 24)}
             showViewMore={true}
-            viewMoreLink="/fair-review"
+            viewMoreLink="/category/fair-review"
             tableName="fair_review"
           />
         </>

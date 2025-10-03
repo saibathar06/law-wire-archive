@@ -16,7 +16,7 @@ interface CategorySectionProps {
 }
 
 const CategorySection = ({ title, articles, subcategories, showViewMore = false, viewMoreLink, tableName }: CategorySectionProps) => {
-  const [displayedCount, setDisplayedCount] = useState(15);
+  const [displayedCount, setDisplayedCount] = useState(24);
 
   if (!articles.length) return null;
 

@@ -60,16 +60,14 @@ const Navigation = ({ onContactClick }: NavigationProps) => {
             <div key={category.slug} className="relative group">
               {category.subcategories ? (
                 <>
-                  <div className="flex items-center">
-                    <button
-                      onClick={() => handleCategoryClick(category.slug)}
-                      className="text-foreground font-medium hover:text-primary tracking-wider transition-colors"
-                    >
-                      {category.name.toUpperCase()}
-                    </button>
+                  <button
+                    onClick={() => handleCategoryClick(category.slug)}
+                    className="text-foreground font-medium hover:text-primary tracking-wider transition-colors flex items-center"
+                  >
+                    {category.name.toUpperCase()}
                     <ChevronDown className="ml-1 h-3 w-3 text-foreground" />
-                  </div>
-                  <div className="absolute left-0 mt-2 w-48 bg-popover rounded-md shadow-lg py-2 invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all duration-200">
+                  </button>
+                  <div className="absolute left-0 mt-2 w-48 bg-popover rounded-md shadow-lg py-2 invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all duration-200 z-50">
                     {category.subcategories.map((sub) => (
                       <button
                         key={sub.slug}
