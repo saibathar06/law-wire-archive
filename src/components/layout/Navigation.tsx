@@ -39,7 +39,12 @@ const Navigation = ({ onContactClick }: NavigationProps) => {
     if (subCategorySlug) {
       navigate(`/category/${categorySlug}/${subCategorySlug}`);
     } else {
-      navigate(`/category/${categorySlug}`);
+      // Direct routes for pages with their own components
+      if (categorySlug === 'blogs' || categorySlug === 'case-comments' || categorySlug === 'fair-review') {
+        navigate(`/${categorySlug}`);
+      } else {
+        navigate(`/category/${categorySlug}`);
+      }
     }
     setIsMobileMenuOpen(false);
   };
